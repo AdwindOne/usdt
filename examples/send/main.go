@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/AdwindOne/usdt"
-	"github.com/AdwindOne/usdti/rpc"
-	"log"
 	"fmt"
+	"log"
+	"usdt"
+	"usdt/rpc"
 )
 
 var (
@@ -21,8 +21,8 @@ func main() {
 	b, r := omni.GetBalance("mveUkR2wkxL1fVPaD7APMXwbDxbE57yDWC", 3)
 	log.Printf("%s, %s\n", b, r)
 
-	h ,err:= omni.Send("mveUkR2wkxL1fVPaD7APMXwbDxbE57yDWC", "mpF14fMrBJ3kLAePfHMC3Nppi2wdTZiTiq", 3, "1")
-	if err !=nil{
+	h, err := omni.Send("mveUkR2wkxL1fVPaD7APMXwbDxbE57yDWC", "mpF14fMrBJ3kLAePfHMC3Nppi2wdTZiTiq", 3, "1")
+	if err != nil {
 		fmt.Println(err)
 	}
 	log.Printf("%v\n", h)

@@ -1,11 +1,11 @@
 package usdtapi
 
 import (
-	"github.com/AdwindOne/usdt/rpc"
 	"log"
+	"usdt/rpc"
 )
 
-// The client for rpc of omni core
+// OmniClient The client for rpc of omni core
 type OmniClient struct {
 	ConnCfg *rpc.ConnConfig
 }
@@ -15,7 +15,7 @@ func NewOmniClient(connCfg *rpc.ConnConfig) *OmniClient {
 	return &OmniClient{connCfg}
 }
 
-// Returns the token balance for a given address and property.
+// GetBalance Returns the token balance for a given address and property.
 //
 // Arguments:
 //
@@ -39,7 +39,7 @@ func (o *OmniClient) GetBalance(address string, propertyid uint32) (balance, res
 	return result.Balance, result.Reserved
 }
 
-// List wallet transactions, optionally filtered by an address and block boundaries.
+// ListTransactions List wallet transactions, optionally filtered by an address and block boundaries.
 //
 // Arguments:
 //
@@ -66,7 +66,7 @@ func (o *OmniClient) ListTransactions(args ...interface{}) (result []Tx) {
 	return
 }
 
-// Create and broadcast a simple send transaction.
+// Send Create and broadcast a simple send transaction.
 //
 // Arguments:
 //

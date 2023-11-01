@@ -1,6 +1,6 @@
 package rpc
 
-//RPC connect configure of the omni core wallet
+// ConnConfig RPC connect configure of the omni core wallet
 type ConnConfig struct {
 	// The format is <host|ip:[port]>
 	Host string

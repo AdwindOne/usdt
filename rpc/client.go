@@ -3,12 +3,12 @@ package rpc
 import (
 	"bytes"
 	"fmt"
-	"github.com/AdwindOne/usdt/rpc/json"
 	"log"
 	"net/http"
+	"usdt/rpc/json"
 )
 
-// Implement a simple omni core RPC interface.
+// Client Implement a simple omni core RPC interface.
 // And support http basic auth.
 type Client struct {
 	connConfig *ConnConfig
