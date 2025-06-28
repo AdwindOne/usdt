@@ -1,11 +1,10 @@
-package rpc
+package rpcclient
 
 import (
 	"bytes"
 	"fmt"
 	"log"
 	"net/http"
-	"usdt/rpc/json"
 )
 
 // Client Implement a simple omni core RPC interface.
@@ -28,7 +27,7 @@ func (c *Client) Call(result interface{}, method string, args ...interface{}) er
 	params := make([]interface{}, 0)
 	params = append(params, args...)
 
-	message, err := json.EncodeClientRequest(method, params)
+	message, err := EncodeClientRequest(method, params)
 	if err != nil {
 		log.Printf("%s", err)
 		return err
@@ -49,7 +48,7 @@ func (c *Client) Call(result interface{}, method string, args ...interface{}) er
 	}
 	defer resp.Body.Close()
 
-	err = json.DecodeClientResponse(resp.Body, &result)
+	err = DecodeClientResponse(resp.Body, &result)
 	if err != nil {
 		log.Printf("Couldn't decode response. %s", err)
 		return err

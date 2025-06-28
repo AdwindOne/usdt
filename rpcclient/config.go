@@ -1,4 +1,4 @@
-package rpc
+package rpcclient
 
 // ConnConfig RPC connect configure of the omni core wallet
 type ConnConfig struct {

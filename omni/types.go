@@ -1,4 +1,4 @@
-package usdtapi
+package omni
 
 type Tx struct {
 	// The hex-encoded hash of the transaction

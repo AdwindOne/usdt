@@ -1,18 +1,18 @@
-package usdtapi
+package omni
 
 import (
 	"log"
-	"usdt/rpc"
+	"usdt/rpcclient"
 )
 
-// OmniClient The client for rpc of omni core
-type OmniClient struct {
-	ConnCfg *rpc.ConnConfig
+// Client The client for rpc of omni core
+type Client struct {
+	ConnCfg *rpcclient.ConnConfig
 }
 
-// NewOmniClient returns a new client instance.
-func NewOmniClient(connCfg *rpc.ConnConfig) *OmniClient {
-	return &OmniClient{connCfg}
+// NewClient returns a new client instance.
+func NewClient(connCfg *rpcclient.ConnConfig) *Client {
+	return &Client{connCfg}
 }
 
 // GetBalance Returns the token balance for a given address and property.
@@ -27,9 +27,9 @@ func NewOmniClient(connCfg *rpc.ConnConfig) *OmniClient {
 //
 // "balance" : "n.nnnnnnnn",   (string) the available balance of the address
 // "reserved" : "n.nnnnnnnn"   (string) the amount reserved by sell offers and accepts
-func (o *OmniClient) GetBalance(address string, propertyid uint32) (balance, reserved string) {
+func (o *Client) GetBalance(address string, propertyid uint32) (balance, reserved string) {
 
-	c := rpc.NewClient(o.ConnCfg)
+	c := rpcclient.NewClient(o.ConnCfg)
 	var result balanceResult
 
 	if err := c.Call(&result, "omni_getbalance", address, propertyid); err != nil {
@@ -56,8 +56,8 @@ func (o *OmniClient) GetBalance(address string, propertyid uint32) (balance, res
 // Result:
 //
 // Array of Tx objects
-func (o *OmniClient) ListTransactions(args ...interface{}) (result []Tx) {
-	c := rpc.NewClient(o.ConnCfg)
+func (o *Client) ListTransactions(args ...interface{}) (result []Tx) {
+	c := rpcclient.NewClient(o.ConnCfg)
 
 	if err := c.Call(&result, "omni_listtransactions", args...); err != nil {
 		log.Printf("Call %v", err)
@@ -81,8 +81,8 @@ func (o *OmniClient) ListTransactions(args ...interface{}) (result []Tx) {
 // Result:
 //
 // "hash"                  (string) the hex-encoded transaction hash
-func (o *OmniClient) Send(fromaddress, toaddress string, propertyid uint32, amount string) (string, error) {
-	c := rpc.NewClient(o.ConnCfg)
+func (o *Client) Send(fromaddress, toaddress string, propertyid uint32, amount string) (string, error) {
+	c := rpcclient.NewClient(o.ConnCfg)
 	var hash string
 	if err := c.Call(&hash, "omni_send", fromaddress, toaddress, propertyid, amount); err != nil {
 		//log.Printf("Call %v", err)
@@ -92,8 +92,8 @@ func (o *OmniClient) Send(fromaddress, toaddress string, propertyid uint32, amou
 	return hash, nil
 }
 
-func (o *OmniClient) GetBlockCount() int64 {
-	c := rpc.NewClient(o.ConnCfg)
+func (o *Client) GetBlockCount() int64 {
+	c := rpcclient.NewClient(o.ConnCfg)
 
 	var count int64 = 0
 	if err := c.Call(&count, "getblockcount"); err != nil {
@@ -103,9 +103,9 @@ func (o *OmniClient) GetBlockCount() int64 {
 	return count
 }
 
-func (o *OmniClient) GetTransaction(txid string) *Tx {
+func (o *Client) GetTransaction(txid string) *Tx {
 
-	c := rpc.NewClient(o.ConnCfg)
+	c := rpcclient.NewClient(o.ConnCfg)
 	var result Tx
 
 	if err := c.Call(&result, "omni_gettransaction", txid); err != nil {
